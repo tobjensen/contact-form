@@ -1,0 +1,12 @@
+A New Customer Submitted the Contact Form
+_name
+_email
+_message
+
+This is great news! We should get back to them as soon as possible to help them get started. This could be the beginning of something great.
+
+Write Email
+_email
+
+Hyperwonk
+Sydney, Australia
