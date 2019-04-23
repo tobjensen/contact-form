@@ -7,35 +7,36 @@ Static websites are pretty great.
 
 Yet, setting up a contact form on a static website is not so great.
 It can be a challenge to set up a contact form on a static website,
-and most websites *do* need some type of contact form.
+and most websites do need some type of contact form.
 
-Contact form for static websites allows you set up a working contact form with AWS.
+Contact Form for Static Websites allows you set up a working contact form with AWS.
 The contact form allows a user to input thier name, email and a message.
 When the form is submitted, the data is captured and sent as an email to a specified email address.
 
 Here is an overview of how Contact Form for Static Websites works:
 * Contact form is built and styled with HTML and CSS
-* On form submission, the form input is captured with jQuery and sent as JSON data to AWS API Gateway
+* On form submission, the form input is captured with jQuery and sent as JSON to AWS API Gateway
 * AWS API Gateway receives the data and passes it to an AWS Lambda function
 * The AWS Lambda function composes an email by inserting the data into an email template
 * The AWS Lambda function instructs AWS SES to send the email to a specified email address
 
 ## Let's get started
 
-To get started with Contact form for static websites, you need an AWS account.
+To get started with Contact Form for Static Websites, you need an AWS account.
 If you don't have an AWS account, you can get started with a [free tier account](https://aws.amazon.com/free/).
 
-Below are detailed instructions for going through the steps to set up Contact form for static websites with AWS.
+Below are detailed instructions for going through the steps to set up Contact Form for Static Websites with AWS.
 Here is an overview of the steps:
 * Verify your sending and receiving email with SES
-* Create an IAM role for the Lambda function, to allow it to send email and write logs
+* Create an IAM role for the Lambda function, to allow the Lambda function to send email and write logs
 * Create a Lambda function with the IAM role, using Python 3.6 as runtime
 * Attach the email templates (.txt & .html) to the Lambda function
 * Set up an API endpoint with API Gateway to receive data
-* Insert the form, the `contact.js` script, and jQuery on your site
-* Insert your API endpoint in the `contact.js` script
+* Insert your API endpoint URL in the `form.js` script
+* Insert the form, the customised `form.js` script, and jQuery on your site
 
 ### Verify your sending and receiving email with SES
+
 Before you can send email with AWS SES, you need to verify your email.
 You'll be looking to verify two email addresses:
 
@@ -43,14 +44,18 @@ You'll be looking to verify two email addresses:
 * Your Receiving Email Address (ex: sales@yourdomain.com)
 
 [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses-procedure.html) with SES is straight forward.
-In the AWS Console, [navigate to SES](https://console.aws.amazon.com/ses/).
-Under Identity Management, choose email addresses and then Verify a New Email Address.
-You'll type in your email address and Amazon will send a verification email to that address.
+
+* Log into your AWS Console and [navigate to SES](https://console.aws.amazon.com/ses/)
+* Under Identity Management, choose email addresses and then Verify a New Email Address
+* Enter the email address that you're verifying and confirm
+* Click the link in the verification email sent to that address
 
 Do this for both your sending and receiving email address.
+
 After you're done, you can test an email address by selecting it and pressing Send a Test Email.
 
 ### Create an IAM role for the Lambda function, to allow it to send email and write logs
+
 Permission roles are great for managing permission access to different AWS services. 
 You'll make a new role for our Lambda function with AWS IAM.
 The role should allow the Lambda function to send email with SES and write logs to CloudWatch.
@@ -83,7 +88,7 @@ It is good practice to provide both a plain text and HTML version of email.
 ### Test that the Lambda function is working as intended
 
 You can now test that the Lambda function actually works.
-Try configuring a new test event, passing test values for name, email and message:
+Try configuring a new test event, passing values for name, email and message:
 ```
 {
   "name": "Test Namington",
@@ -97,48 +102,50 @@ Try configuring a new test event, passing test values for name, email and messag
 To recieve form data on send it to the Lambda function,
 you need to set up an API endpoint with API Gateway.
 
-Below are the steps to set up the API endpoint,
-leaving all the defaults as they are.
+Below are the steps to set up the API endpoint.
+You can leave all the defaults as they are.
 
 * Navigate to API Gateway and press 'Create API'
 * Give your API a name (ex: contact)
 * Press 'Actions' and then 'Create Ressource'
 * Give the ressource a name (ex: contact) and press 'Create Ressource'
 * Press 'Actions', then 'Create Method', choose 'POST' and press ✅
-* Type in the name of the lambda function (emailer) and press 'Save'
-* Press 'Actions', then 'Enable CORS' and press 'Enable CORS ...' and confirm
+* Type in the name of the Lambda function (emailer) and press 'Save'
+* Press 'Actions', then 'Enable CORS' and press 'Enable CORS and replace existing CORS headers'
 * Press 'Actions' and then 'Deploy API'
 * Choose `[New Stage]` as Deployment stage and give it a name (ex: `1`)
 * Press the ▶ next to `1` to unfold the menu and press 'POST' to see Invoke URL
 * Take note of the URL (ex: `https://xxxxxx.execute-api.us-east-1.amazonaws.com/1/contact`)
 
-### Insert the form, the `contact.js` script, and jQuery on your site
+### Insert your API endpoint URL in the `form.js` script
 
-For this step, you can either choose to put the entire `form.html` file directly on your site.
-Alternativly, you can simply open the `form.html` file with a browser.
-
-* Insert the form (HTML and CSS) on your site
-* Insert the `contact.js` script on your site
-* Insert the jQuery library on your site
-
-### Insert your API endpoint in the `contact.js` script
-
-Finally, make sure that you replace the placeholder URL value with the API endpoint URL you created with API Gateway.
-Take the URL endpoint and insert it in place of `INSERT_API_ENDPOINT_HERE` in the `submitForm` function in `contact.js`.
+Replace the placeholder URL value with the API endpoint URL you created with API Gateway.
+Insert the URL endpoint in [form.js](https://github.com/tobjensen/contact-form/blob/master/form/form.js) in place of `INSERT_API_ENDPOINT_HERE`.
 
 ```
 var URL = "https://xxxxxx.execute-api.us-east-1.amazonaws.com/1/contact"
 ```
 
+### Insert the form, the customised `form.js` script, and jQuery on your site
+
+You are now ready to deploy Contact Form for Static Websites to your site.
+
+* Insert the [HTML form](https://github.com/tobjensen/contact-form/blob/master/form/form.html) on your site
+* Insert the [CSS styling](https://github.com/tobjensen/contact-form/blob/master/form/form.css) on your site
+* Insert the your customised form.js script on your site
+* Insert the [jQuery library](https://developers.google.com/speed/libraries/#jquery) on your site
+
 ## Notes
 
 ### Customizing the email templates
+
 There is potential to do more custom CSS styling to make the form blend with your site.
 You can customise the templates from Contact Form for Static Websites,
 but remember to give unique values to where you would like to insert form data for name, email and message.
 Notice the use of the values `_name`, `_email` and `_message` in the template files.
 
 ### Inline CSS styling in email templates 
+
 When customising the HTML template, notice that the CSS styling in the HTML template is inline.
 While many email clients now allow for dedicated style elements,
 some strip out these style elements when forwarding.
