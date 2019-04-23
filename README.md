@@ -1,4 +1,4 @@
-# Contact form for static websites
+# Contact Form for Static Websites
 
 Static websites are pretty great.
 * Static websites are quick to set up.
@@ -13,7 +13,7 @@ Contact form for static websites allows you set up a working contact form with A
 The contact form allows a user to input thier name, email and a message.
 When the form is submitted, the data is captured and sent as an email to a specified email address.
 
-Here is an overview of how Contact form for static websites works:
+Here is an overview of how Contact Form for Static Websites works:
 * Contact form is built and styled with HTML and CSS
 * On form submission, the form input is captured with jQuery and sent as JSON data to AWS API Gateway
 * AWS API Gateway receives the data and passes it to an AWS Lambda function
@@ -134,7 +134,7 @@ var URL = "https://xxxxxx.execute-api.us-east-1.amazonaws.com/1/contact"
 
 ### Customizing the email templates
 There is potential to do more custom CSS styling to make the form blend with your site.
-You can customise the templates from Contact form for static websites,
+You can customise the templates from Contact Form for Static Websites,
 but remember to give unique values to where you would like to insert form data for name, email and message.
 Notice the use of the values `_name`, `_email` and `_message` in the template files.
 
@@ -183,10 +183,7 @@ Make sure to check that the names of your .txt and .html templates match with th
 
 ## Final Words
 
-*Congratulations!*
-You now have a functioning contact form - perfect for a static website.
-
-If you like Contact form for static websites, please feel free to say so! All the files are available in the Github repo:
+If you like Contact Form for Static Websites, please feel free to say so! All the files are available in the Github repo:
 
 [Contact Form for Static Websites](https://github.com/tobjensen/contact-form)
 
