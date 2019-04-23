@@ -83,7 +83,7 @@ It is good practice to provide both a plain text and HTML version of email.
 
 * Create two new files in the Function code section.
 * Name them template.txt and template.html
-* Insert the code from the `template.txt` file and `template.html` file, respectivly
+* Insert the code from the [template.txt file](https://github.com/tobjensen/contact-form/blob/master/lambda/template.txt) and [template.html file](https://github.com/tobjensen/contact-form/blob/master/lambda/template.html), respectivly
 
 ### Test that the Lambda function is working as intended
 
